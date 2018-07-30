@@ -20,7 +20,7 @@
 <div class="container" ng-controller="mainController">
     <div class="jumbotron mt-3 py-4">
         <h2>Ng hijri gergorian datepicker demo</h2>
-        <p class="lead">This example is a quick exercise to illustrate how the bottom navbar works.</p>
+        <p class="lead">AngularJs Lib for Hijri and Gergorian date, fork from <a href="https://github.com/RemiAWE/ng-flat-datepicker">RemiAWE</a></p>
     </div>
 
     <div class="row">
@@ -57,18 +57,20 @@
     </div>
     <div class="row mt-5">
         <div class="col-4 align-self-center">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
             <code>
                 moment.local() = {{locale}}
             </code>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-4 align-self-center">
-            Switch
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-outline-primary btn-group-sm" ng-click="switchLocale('ar-sa')">Arabic</button>
-                <button type="button" class="btn btn-outline-primary btn-group-sm" ng-click="switchLocale('en')">English</button>
-            </div>
+        <div class="col-8">
+            <pre><code>//Switch language: <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-primary" ng-click="switchLocale('ar-sa')">Arabic</button>
+                <button type="button" class="btn btn-outline-primary" ng-click="switchLocale('en')">English</button>
+            </div></code></pre>
         </div>
     </div>
 

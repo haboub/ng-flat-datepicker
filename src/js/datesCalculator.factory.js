@@ -16,9 +16,17 @@
          * List all years for the select
          * @return {[type]} [description]
          */
-        function getYearsList() {
+        function getYearsList(config) {
+            var startYear = config.minDate.year();
+            var endYear = config.maxDate.year();
+            if(!config.allowPast){
+                startYear = moment().year();
+            }
+            if(!config.allowFuture){
+                endYear = moment().year();
+            }
             var yearsList = [];
-            for (var i = 1991; i <= moment().year(); i++) {
+            for (var i = startYear; i <= endYear; i++) {
                 yearsList.push(i);
             }
             return yearsList;
@@ -28,9 +36,17 @@
          * List all years in Hijri for the select
          * @return {[type]} [description]
          */
-        function getYearsInHijriList() {
+        function getYearsInHijriList(config) {
+            var startYear = config.minDate.iYear();
+            var endYear = config.maxDate.iYear();
+            if(!config.allowPast){
+                startYear = moment().iYear();
+            }
+            if(!config.allowFuture){
+                endYear = moment().iYear();
+            }
             var yearsList = [];
-            for (var i = 1411; i <= moment().iYear(); i++) {
+            for (var i = startYear; i <= endYear; i++) {
                 yearsList.push(i);
             }
             return yearsList;

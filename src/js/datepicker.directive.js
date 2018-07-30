@@ -4,7 +4,7 @@
 
     /**
      * @desc Datepicker directive
-     * @example <ng-datepicker></ng-datepicker>
+     * @example <ng-hijri-gregorian-datepicker></ng-hijri-gregorian-datepicker>
      */
 
     angular
@@ -24,15 +24,17 @@
                 var template     = angular.element($templateCache.get('datepicker.html'));
                 var dateSelected = '';
                 var today        = moment.utc();
+                scope.currentLocale = moment.locale();
 
                 // Default options
                 var defaultConfig = {
                     allowFuture: true,
+                    allowPast: true,
                     dateFormat:  'DD/MM/YYYY',
                     gregorianDateFormat:  'DD/MM/YYYY',
                     hijriDateFormat:  'iDD/iMM/iYYYY',
-                    minDate: null,
-                    maxDate: null,
+                    minDate: moment().subtract(5, 'years'),//for hijri subtract(5, 'iYear');
+                    maxDate: moment().add(5, 'years'),//for hijri add(5, 'iYear');
                     defaultDisplay: 'gregorian',//hijri,
                     locale: null
                 };
@@ -53,7 +55,7 @@
                 if (angular.isDefined(scope.config.locale)) moment.locale(scope.config.locale);
                 if (angular.isDefined(scope.config.minDate)) moment.utc(scope.config.minDate).subtract(1, 'day');
                 if (angular.isDefined(scope.config.maxDate)) moment.utc(scope.config.maxDate).add(1, 'day');
-                scope.config.isRTL = ( moment.locale() === 'ar' || moment.locale() === 'ar-sa');
+                scope.config.isRTL = moment.locale().startsWith('ar');
                 setSwitchButtonVal();
 
 
@@ -63,8 +65,8 @@
                 scope.daysNameList      = datesCalculator.getDaysNames();
                 scope.monthsList        = moment.months();
                 scope.monthsInHijriList = moment.localeData()._iMonths;
-                scope.yearsList         = datesCalculator.getYearsList();
-                scope.yearsInHijriList  = datesCalculator.getYearsInHijriList();
+                scope.yearsList         = datesCalculator.getYearsList(scope.config);
+                scope.yearsInHijriList  = datesCalculator.getYearsInHijriList(scope.config);
 
                 // Display
                 scope.pickerDisplayed = false;
@@ -76,7 +78,15 @@
                 });
 
                 scope.$watch('calendarCursor', function(val){
-                    scope.currentWeeks = getiWeeks(val);
+                    scope.currentWeeks = getWeeks(val);
+                });
+                scope.$watch('currentLocale', function(){
+                    scope.daysNameList      = datesCalculator.getDaysNames();
+                    scope.monthsList        = moment.months();
+                    scope.monthsInHijriList = moment.localeData()._iMonths;
+                    scope.calendarCursor.locale(moment.locale());
+                    scope.config.isRTL = moment.locale().startsWith('ar');
+                    setSwitchButtonVal();
                 });
 
                 /**
@@ -84,6 +94,7 @@
                  */
                 element.bind('click', function(e) {
                     scope.$apply(function(){
+                        scope.currentLocale = moment.locale();
                         scope.pickerDisplayed = true;
                         $document.on('click', onDocumentClick);
                     });
@@ -197,46 +208,6 @@
 
                     var weeks = [];
                     var date = moment.utc(date);
-                    var firstDayOfMonth = moment(date).date(1);
-                    var lastDayOfMonth  = moment(date).date(date.daysInMonth());
-
-                    var startDay = moment(firstDayOfMonth);
-                    var endDay   = moment(lastDayOfMonth);
-                    // NB: We use weekday() to get a locale aware weekday
-                    startDay = firstDayOfMonth.weekday() === 0 ? startDay : startDay.weekday(0);
-                    endDay   = lastDayOfMonth.weekday()  === 6 ? endDay   : endDay.weekday(6);
-
-                    var currentWeek = [];
-
-                    for (var start = moment(startDay); start.isBefore(moment(endDay).add(1, 'days')); start.add(1, 'days')) {
-
-                        var afterMinDate  = !scope.config.minDate || start.isAfter(scope.config.minDate, 'day');
-                        var beforeMaxDate = !scope.config.maxDate || start.isBefore(scope.config.maxDate, 'day');
-                        var isFuture      = start.isAfter(today);
-                        var beforeFuture  = scope.config.allowFuture || !isFuture;
-
-                        var day = {
-                            date: moment(start).toDate(),
-                            isToday: start.isSame(today, 'day'),
-                            isInMonth: start.isSame(firstDayOfMonth, 'month'),
-                            isSelected: start.isSame(dateSelected, 'day'),
-                            isSelectable: afterMinDate && beforeMaxDate && beforeFuture
-                        };
-
-                        currentWeek.push(day);
-
-                        if (start.weekday() === 6 || start === endDay) {
-                            weeks.push(currentWeek);
-                            currentWeek = [];
-                        }
-                    }
-
-                    return weeks;
-                }
-                function getiWeeks (date) {
-
-                    var weeks = [];
-                    var date = moment.utc(date);
                     var firstDayOfMonth, lastDayOfMonth = null;
 
                     if(scope.config.defaultDisplay === 'gregorian'){
@@ -260,7 +231,9 @@
                         var afterMinDate  = !scope.config.minDate || start.isAfter(scope.config.minDate, 'day');
                         var beforeMaxDate = !scope.config.maxDate || start.isBefore(scope.config.maxDate, 'day');
                         var isFuture      = start.isAfter(today);
+                        var isPast        = start.isBefore(today);
                         var beforeFuture  = scope.config.allowFuture || !isFuture;
+                        var beforePast    = scope.config.allowPast || !isPast;
 
                         var day = {
                             date: moment(start).toDate(),
@@ -271,7 +244,7 @@
                             dayInHijri: parseArabic(""+start.format('iDD')),
                             day: parseArabic(""+start.format('DD')),
 
-                            isSelectable: afterMinDate && beforeMaxDate && beforeFuture
+                            isSelectable: afterMinDate && beforeMaxDate && beforeFuture && beforePast
                         };
 
                         currentWeek.push(day);
@@ -308,7 +281,7 @@
                     }
                     setSwitchButtonVal();
 
-                    scope.currentWeeks = getiWeeks(scope.calendarCursor);
+                    scope.currentWeeks = getWeeks(scope.calendarCursor);
                     scope.showMonthsList = scope.showYearsList = false;
                 }
 

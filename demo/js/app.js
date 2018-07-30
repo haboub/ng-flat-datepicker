@@ -11,8 +11,13 @@
 
     function mainController ($scope) {
         $scope.hijriDatepickerConfig = {
-            allowFuture: true,
             dateFormat: 'DD/MM/YYYY',
+            gregorianDateFormat:  'DD/MM/YYYY',
+            hijriDateFormat:  'iDD/iMM/iYYYY',
+            allowPast: false,
+            minDate: moment().subtract(5, 'years'),//for hijri subtract(5, 'iYear');
+            allowFuture: false,
+            maxDate: moment().add(5, 'years'),//for hijri add(5, 'iYear');
             defaultDisplay: 'hijri'
         };
 

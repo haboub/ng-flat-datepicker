@@ -11,7 +11,11 @@
 				</span>
                 <div class="ng-hg-datepicker-header-year">
                     <div class="ng-hg-datepicker-custom-select-box" outside-click="showMonthsList = false">
-                        <span class="ng-hg-datepicker-custom-select-title ng-hg-datepicker-month-name" ng-click="showMonthsList = !showMonthsList; showYearsList = false" ng-class="{selected: showMonthsList }">{{  config.defaultDisplay == 'hijri' ? calendarCursor.format('iMMMM') :  calendarCursor.format('MMMM') }}</span>
+                        <span class="ng-hg-datepicker-custom-select-title ng-hg-datepicker-month-name"
+                              ng-click="showMonthsList = !showMonthsList; showYearsList = false"
+                              ng-class="{selected: showMonthsList }">
+                            {{  config.defaultDisplay == 'hijri' ? calendarCursor.format('iMMMM') :  calendarCursor.format('MMMM') }}
+                        </span>
                         <div class="ng-hg-datepicker-custom-select" ng-show="showMonthsList">                            <span ng-if="config.defaultDisplay == 'gregorian'" ng-repeat="monthName in monthsList" ng-click="selectMonth(monthName); showMonthsList = false">{{ monthName }}</span><span ng-if="config.defaultDisplay == 'hijri'" ng-repeat="monthName in monthsInHijriList" ng-click="selectMonth(monthName); showMonthsList = false">{{ monthName }}</span>                        </div>
                     </div>
                     <div class="ng-hg-datepicker-custom-select-box" outside-click="showYearsList = false">
