@@ -10,19 +10,26 @@
         .controller('mainController', ['$scope', mainController]);
 
     function mainController ($scope) {
-
-        $scope.datepickerConfig = {
+        $scope.hijriDatepickerConfig = {
             allowFuture: true,
             dateFormat: 'DD/MM/YYYY',
             defaultDisplay: 'hijri'
         };
 
-        $scope.datepickerConfig1 = {
+        $scope.gregorianDatepickerConfig = {
             allowFuture: true,
             dateFormat: 'DD/MM/YYYY',
             defaultDisplay: 'gregorian'
         };
-        moment.locale("ar");
+
+
+        //Demo related below
+        moment.locale('en');
+        $scope.locale = moment.locale();
+        $scope.switchLocale = function( value ){
+            moment.locale(value);
+            $scope.locale = moment.locale();
+        };
     }
 
 })();

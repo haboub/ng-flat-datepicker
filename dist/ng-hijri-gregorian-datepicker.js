@@ -179,7 +179,8 @@
                  */
                 function init() {
 
-                    element.wrap('<div class="ng-hg-datepicker-wrapper"></div>');
+                    element.parent().addClass('ng-hg-datepicker-wrapper');
+                        //.wrap('<div class=""></div>');
 
                     $compile(template)(scope);
                     element.after(template);

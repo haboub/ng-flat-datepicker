@@ -17,20 +17,59 @@
 
 <body ng-app="testApp" ng-strict-di>
 
-<div class="container">
+<div class="container" ng-controller="mainController">
     <div class="jumbotron mt-3 py-4">
         <h2>Ng hijri gergorian datepicker demo</h2>
         <p class="lead">This example is a quick exercise to illustrate how the bottom navbar works.</p>
     </div>
 
-    <div ng-controller="mainController">
+    <div class="row">
+        <div class="col-5">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Hijri</span>
+                </div>
+                <input type="text" name="date" class="form-control" autocomplete="off" ng-hijri-gregorian-datepicker datepicker-config="hijriDatepickerConfig" selected-date="val" ng-model="date">
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Gregorian</span>
+                </div>
+                <input type="text" name="date" class="form-control" autocomplete="off" ng-hijri-gregorian-datepicker datepicker-config="gregorianDatepickerConfig" selected-date="val" ng-model="date">
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-primary" ng-hijri-gregorian-datepicker
+                    datepicker-config="hijriDatepickerConfig" selected-date="val" ng-model="date">Pick a date</button>
 
-        <input type="text" name="date" ng-hijri-gregorian-datepicker datepicker-config="datepickerConfig" selected-date="val" ng-model="date">
-        or
-        <button ng-hijri-gregorian-datepicker datepicker-config="datepickerConfig" selected-date="val" ng-model="date2" type="button" name="button">Pick a date</button>
-
-        <p>Ng-model input: {{ date | json }}</p>
-        <p>Ng-model button: {{ val }}</p>
+        </div>
+    </div>
+    <div>
+        <code>
+            ng-model: {{ date | json }}
+        </code>
+        <br>
+        <code>
+            selected-date: {{ val }}
+        </code>
+    </div>
+    <div class="row mt-5">
+        <div class="col-4 align-self-center">
+            <code>
+                moment.local() = {{locale}}
+            </code>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 align-self-center">
+            Switch
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-primary btn-group-sm" ng-click="switchLocale('ar-sa')">Arabic</button>
+                <button type="button" class="btn btn-outline-primary btn-group-sm" ng-click="switchLocale('en')">English</button>
+            </div>
+        </div>
     </div>
 
 </div>
