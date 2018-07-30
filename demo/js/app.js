@@ -16,7 +16,7 @@
             hijriDateFormat:  'iDD/iMM/iYYYY',
             allowPast: false,
             minDate: moment().subtract(5, 'years'),//for hijri subtract(5, 'iYear');
-            allowFuture: false,
+            allowFuture: true,
             maxDate: moment().add(5, 'years'),//for hijri add(5, 'iYear');
             defaultDisplay: 'hijri'
         };
