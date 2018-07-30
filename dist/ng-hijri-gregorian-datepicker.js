@@ -7,6 +7,7 @@
      * @example <ng-datepicker></ng-datepicker>
      */
 
+    ngHijriGregorianDatepickerDirective.$inject = ["$templateCache", "$compile", "$document", "datesCalculator"];
     angular
         .module('ngHijriGregorianDatepicker', [])
         .directive('ngHijriGregorianDatepicker', ngHijriGregorianDatepickerDirective);
@@ -337,3 +338,64 @@
     }
 
 })();
+
+(function(){
+
+    'use strict';
+
+    /**
+     * @desc Dates calculator factory
+     */
+
+     angular
+         .module('ngHijriGregorianDatepicker')
+         .factory('datesCalculator', datesCalculator);
+
+    function datesCalculator () {
+
+        /**
+         * List all years for the select
+         * @return {[type]} [description]
+         */
+        function getYearsList() {
+            var yearsList = [];
+            for (var i = 1991; i <= moment().year(); i++) {
+                yearsList.push(i);
+            }
+            return yearsList;
+        }
+
+        /**
+         * List all years in Hijri for the select
+         * @return {[type]} [description]
+         */
+        function getYearsInHijriList() {
+            var yearsList = [];
+            for (var i = 1411; i <= moment().iYear(); i++) {
+                yearsList.push(i);
+            }
+            return yearsList;
+        }
+
+        /**
+         * List all days name in the current locale
+         * @return {[type]} [description]
+         */
+        function getDaysNames () {
+            var daysNameList = [];
+            for (var i = 0; i < 7 ; i++) {
+                daysNameList.push(moment().weekday(i).format('ddd'));
+            }
+            return daysNameList;
+        }
+
+        return {
+            getYearsList: getYearsList,
+            getYearsInHijriList: getYearsInHijriList,
+            getDaysNames: getDaysNames
+        };
+    }
+
+})();
+
+angular.module('ngHijriGregorianDatepicker').run(['$templateCache', function($templateCache) {$templateCache.put('datepicker.html','\r\n<div class="ng-hg-datepicker" ng-show="pickerDisplayed">\r\n    <div class="ng-hg-datepicker-table-header-bckgrnd"></div>\r\n    <table ng-class="{rtl: config.isRTL }">\r\n        <caption>\r\n            <div class="ng-hg-datepicker-header-wrapper">\r\n\t\t\t\t<span class="ng-hg-datepicker-arrow ng-hg-datepicker-arrow-left" ng-click="prevMonth()">\r\n\t\t\t\t\t<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="50" y="50" viewBox="0 0 100 100" xml:space="preserve">\r\n\t\t\t\t\t\t<polygon points="64.8,36.2 35.2,6.5 22.3,19.4 51.9,49.1 22.3,78.8 35.2,91.7 77.7,49.1" />\r\n\t\t\t\t\t</svg>\r\n\t\t\t\t</span>\r\n                <div class="ng-hg-datepicker-header-year">\r\n                    <div class="ng-hg-datepicker-custom-select-box" outside-click="showMonthsList = false">\r\n                        <span class="ng-hg-datepicker-custom-select-title ng-hg-datepicker-month-name" ng-click="showMonthsList = !showMonthsList; showYearsList = false" ng-class="{selected: showMonthsList }">{{  config.defaultDisplay == \'hijri\' ? calendarCursor.format(\'iMMMM\') :  calendarCursor.format(\'MMMM\') }}</span>\r\n                        <div class="ng-hg-datepicker-custom-select" ng-show="showMonthsList">                            <span ng-if="config.defaultDisplay == \'gregorian\'" ng-repeat="monthName in monthsList" ng-click="selectMonth(monthName); showMonthsList = false">{{ monthName }}</span><span ng-if="config.defaultDisplay == \'hijri\'" ng-repeat="monthName in monthsInHijriList" ng-click="selectMonth(monthName); showMonthsList = false">{{ monthName }}</span>                        </div>\r\n                    </div>\r\n                    <div class="ng-hg-datepicker-custom-select-box" outside-click="showYearsList = false">\r\n                        <span class="ng-hg-datepicker-custom-select-title" ng-click="showYearsList = !showYearsList; showMonthsList = false" ng-class="{selected: showYearsList }">{{ config.defaultDisplay == \'hijri\' ? calendarCursor.format(\'iYYYY\') : calendarCursor.format(\'YYYY\') }}</span>\r\n                        <div class="ng-hg-datepicker-custom-select" ng-show="showYearsList">                            <span ng-if="config.defaultDisplay == \'gregorian\'" ng-repeat="yearNumber in yearsList" ng-click="selectYear(yearNumber)">{{ yearNumber }}</span> <span ng-if="config.defaultDisplay == \'hijri\'" ng-repeat="yearNumber in yearsInHijriList" ng-click="selectYear(yearNumber)">{{ yearNumber }}</span>                        </div>\r\n                    </div>\r\n                </div>\r\n                <span class="ng-hg-datepicker-arrow ng-hg-datepicker-arrow-right" ng-click="nextMonth()">\r\n\t\t\t\t\t<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="50" y="50" viewBox="0 0 100 100" xml:space="preserve">\r\n\t\t\t\t\t\t<polygon points="64.8,36.2 35.2,6.5 22.3,19.4 51.9,49.1 22.3,78.8 35.2,91.7 77.7,49.1" />\r\n\t\t\t\t\t</svg>\r\n\t\t\t\t</span>\r\n            </div>\r\n        </caption>\r\n        <tbody>\r\n        <tr class="days-head">\r\n            <td class="day-head" ng-repeat="dayName in daysNameList">{{ dayName }}</td>\r\n        </tr>\r\n        <tr class="days" ng-repeat="week in currentWeeks">\r\n            <td ng-repeat="day in week" ng-click="selectDay(day)" ng-class="[\'day-item\', { \'isToday\': day.isToday, \'isInMonth\': ( day.isInHijriMonth && config.defaultDisplay == \'hijri\') || ( day.isInMonth && config.defaultDisplay == \'gregorian\'), \'isDisabled\': !day.isSelectable, \'isSelected\': day.isSelected }]"><span ng-if="config.defaultDisplay == \'gregorian\'">{{ day.day }}</span><span ng-if="config.defaultDisplay == \'hijri\'">{{ day.dayInHijri }}</span></td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n    <button class="switchBtn" ng-click="switchDate()">{{switchButtonLabel}}</button>\r\n</div>\r\n');}]);

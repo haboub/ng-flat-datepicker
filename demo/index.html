@@ -1,35 +1,73 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Ng-flat-datepicker demo</title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300,600' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="../dist/ng-flat-datepicker.css">
-        <style>
-            * { font-family: 'Open Sans'; }
-        </style>
-    </head>
-    <body ng-app="testApp" ng-strict-di>
 
-        <div ng-controller="mainController">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-            <h1>Ng datepicker demo</h1>
+    <title>Bottom navbar example for Bootstrap</title>
+    <!-- flat-datepicker core CSS -->
+    <link rel="stylesheet" href="../dist/ng-hijri-gregorian-datepicker.css">
 
-            <input type="text" name="date" ng-flat-datepicker datepicker-config="datepickerConfig" ng-model="date">
-            or
-            <button ng-flat-datepicker ng-model="date2" type="button" name="button">Pick a date</button>
+    <!-- Bootstrap core CSS -->
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-            <p>Ng-model input: {{ date | json }}</p>
-            <p>Ng-model button: {{ date2 | json }}</p>
-        </div>
+<body ng-app="testApp" ng-strict-di>
 
-        <!-- JS -->
-        <script src="../node_modules/moment/moment.js"></script>
-        <!-- <script src="../node_modules/moment/locale/fr.js"></script> -->
-        <script src="../node_modules/angular/angular.js"></script>
+<div class="container">
+    <div class="jumbotron mt-3 py-4">
+        <h2>Ng hijri gergorian datepicker demo</h2>
+        <p class="lead">This example is a quick exercise to illustrate how the bottom navbar works.</p>
+    </div>
 
-        <script src="../dist/ng-flat-datepicker.js"></script>
+    <div ng-controller="mainController">
 
-        <script src="js/app.js"></script>
-    </body>
+        <input type="text" name="date" ng-hijri-gregorian-datepicker datepicker-config="datepickerConfig" selected-date="val" ng-model="date">
+        or
+        <button ng-hijri-gregorian-datepicker datepicker-config="datepickerConfig" selected-date="val" ng-model="date2" type="button" name="button">Pick a date</button>
+
+        <p>Ng-model input: {{ date | json }}</p>
+        <p>Ng-model button: {{ val }}</p>
+    </div>
+
+</div>
+
+
+
+<nav class="navbar fixed-bottom navbar-expand-sm">
+    <a class="navbar-brand" href="#">Github</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                ©2018. Code licensed under an MIT-style License
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- JS -->
+<script src="../node_modules/moment/moment.js"></script>
+<script src="../node_modules/moment/locale/ar-sa.js"></script>
+<script src="../node_modules/moment-hijri/moment-hijri.js"></script>
+<script src="../node_modules/angular/angular.js"></script>
+
+<script src="../dist/ng-hijri-gregorian-datepicker.js"></script>
+
+<script src="js/app.js"></script>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
 </html>

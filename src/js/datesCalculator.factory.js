@@ -7,7 +7,7 @@
      */
 
      angular
-         .module('ngFlatDatepicker')
+         .module('ngHijriGregorianDatepicker')
          .factory('datesCalculator', datesCalculator);
 
     function datesCalculator () {
@@ -18,7 +18,19 @@
          */
         function getYearsList() {
             var yearsList = [];
-            for (var i = 2005; i <= moment().year(); i++) {
+            for (var i = 1991; i <= moment().year(); i++) {
+                yearsList.push(i);
+            }
+            return yearsList;
+        }
+
+        /**
+         * List all years in Hijri for the select
+         * @return {[type]} [description]
+         */
+        function getYearsInHijriList() {
+            var yearsList = [];
+            for (var i = 1411; i <= moment().iYear(); i++) {
                 yearsList.push(i);
             }
             return yearsList;
@@ -38,6 +50,7 @@
 
         return {
             getYearsList: getYearsList,
+            getYearsInHijriList: getYearsInHijriList,
             getDaysNames: getDaysNames
         };
     }

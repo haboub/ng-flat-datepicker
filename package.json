@@ -1,9 +1,14 @@
 {
-  "name": "ng-flat-datepicker",
-  "version": "0.1.4",
-  "description": "Angular.js Datepicker built with Moment.js",
-  "homepage": "https://github.com/RemiAWE/ng-flat-datepicker#readme",
+  "name": "hijri-gregorian-datetimepicker-and-convertor",
+  "version": "1.0.0",
+  "description": "this is time date picker and convertor for Higri date, Angular.js Datepicker built with Moment.js, fork Rémi Chanaud",
+  "homepage": "https://github.com/RemiAWE/ng-hg-datepicker#readme",
   "keywords": [
+    "higri",
+    "datepicker",
+    "datetimepicker",
+    "higri",
+    "convertor",
     "angular.js",
     "angular",
     "datepicker",
@@ -11,18 +16,18 @@
     "moment",
     "flat"
   ],
-  "main": "dist/ng-flat-datepicker.min.js",
+  "main": "dist/ng-hg-datepicker.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RemiAWE/ng-flat-datepicker.git"
+    "url": "git+https://github.com/RemiAWE/ng-hg-datepicker.git"
   },
-  "author": "Rémi Chanaud",
+  "author": "Khaleel Haboub",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RemiAWE/ng-flat-datepicker/issues"
+    "url": "https://github.com/RemiAWE/ng-hg-datepicker/issues"
   },
   "devDependencies": {
     "angular": "^1.4.5",
@@ -41,6 +46,10 @@
     "gulp-sass": "^4.0.1",
     "gulp-uglify": "^3.0.1",
     "gulp-watch": "^5.0.1",
-    "moment": "^2.10.6"
+    "moment": "^2.10.6",
+    "moment-hijri": "^2.1.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3"
   }
 }

@@ -1,13 +1,13 @@
-ng-flat-datepicker
+ng-hg-datepicker
 ===
 
 Lightweight Angular.js datepicker directive built with Moment.js.
 
-![ng-flat-datepicker screenshot](http://i.imgur.com/m9Aawf2.png)
+![ng-hg-datepicker screenshot](http://i.imgur.com/m9Aawf2.png)
 
 ## Demo
 
-[See demo](http://remiawe.github.io/ng-flat-datepicker/)
+[See demo](http://remiawe.github.io/ng-hg-datepicker/)
 
 ## Features
 * Custom ng-model date format: custom string or js date
@@ -22,20 +22,20 @@ Lightweight Angular.js datepicker directive built with Moment.js.
 
 ## Installation
 
-1. `npm install --save ng-flat-datepicker`
-2. Link `/dist/ng-flat-datepicker.js`and `/dist/ng-flat-datepicker.css`
-3. Add the module `'ngFlatDatepicker'` as dependency of your angular module.
+1. `npm install --save ng-hg-datepicker`
+2. Link `/dist/ng-hg-datepicker.js`and `/dist/ng-hg-datepicker.css`
+3. Add the module `'ngHijriGregorianDatepicker'` as dependency of your angular module.
 
 ## Usage
 
 This is an attribute only directive.
 
 ```html
-<input type="text" ng-model="date" ng-flat-datepicker>
+<input type="text" ng-model="date" ng-hg-datepicker>
 ```
 
 ```html
-<button ng-model="date" ng-flat-datepicker>Pick a date</button>
+<button ng-model="date" ng-hg-datepicker>Pick a date</button>
 ```
 
 ## Options
@@ -44,7 +44,7 @@ This is an attribute only directive.
 * `datepicker-config`: **Object** - The datepicker's config object.
 
 ```html
-<input type="text" ng-model="date" datepicker-config="yourCustomConf" ng-flat-datepicker>Pick a date</button>
+<input type="text" ng-model="date" datepicker-config="yourCustomConf" ng-hg-datepicker>Pick a date</button>
 ```
 
 ### Config object properties:
