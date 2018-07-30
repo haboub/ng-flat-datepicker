@@ -3,11 +3,11 @@ ng-hijri-gregorian-datepicker
 
 Lightweight Angular.js hijri and gregorian datepicker directive built with Moment.js.
 
-![ng-hijri-gregorian-datepicker screenshot](https://imgur.com/a/BHuO4c1)
+![ng-hijri-gregorian-datepicker screenshot](https://i.imgur.com/k3ngAgh.png)
 
 ## Demo
 
-[See demo](http://remiawe.github.io/ng-hijri-gregorian-datepicker/)
+[See demo](https://haboub.github.io/ng-hijri-gregorian-datepicker/demo/index.html)
 
 ## Features
 * Custom ng-model date format: custom string or js date
